@@ -1,48 +1,70 @@
-import { GITHUB_GET_REPOS, GITHUB_SEARCH_USERS, GITHUB_SEARCH_USERS_SUCCESS, GITHUB_SEARCH_USERS_FAILURE } from './constants';
+import * as constants from './constants';
+import { combineReducers } from 'redux';
+import immutable from 'immutability-helper';
+
 
 export const appState = {
-    query: '',
-    users: [],
+    users: {
+        query: '',
+        result: [],
+        status: STATUS.IDLE,
+    },
 
-    currentUser: undefined,
-    repos: [],
+    repos: {
+        currentUser: undefined,
+        result: [],
+        status: STATUS.IDLE,
+    }
+
 };
 
 export const reducer = (state = appState, { type, payload }) => {
     switch (type) {
-        case GITHUB_SEARCH_USERS:
+        case constants.GITHUB_SEARCH_USERS:
             return searchUsers(state, payload);
 
-        case GITHUB_SEARCH_USERS_SUCCESS:
-        case GITHUB_SEARCH_USERS_FAILURE:
+        case constants.GITHUB_SEARCH_USERS_SUCCESS:
+        case constants.GITHUB_SEARCH_USERS_FAILURE:
+        case constants.GITHUB_GET_REPOS_SUCCESS:
+        case constants.GITHUB_GET_REPOS_FAILURE:
             return merge(state, payload);
 
-        case GITHUB_GET_REPOS:
-            return getRepos(state, payload);
+        case constants.GITHUB_GET_REPOS:
+            return getRepos(state, payload, );
 
         default:
             return state;
     }
 };
 
-function searchUsers(state, payload) {
-    const { query } = payload;
-    console.log('GITHUB_SEARCH_USERS:', query);
-
-    return {
-        ...state,
-        query,
-    };
+function searchUsers(state, { query }) {
+    return immutable(state, {
+        users: {
+            query: { $set: query },
+            result: { $set: [] },
+        }
+    });
 }
 
 function getRepos(state, payload) {
     const { username } = payload;
-    console.log('GITHUB_GET_REPOS:', username);
-
     return {
         ...state,
-        currentUser: username,
+        repos: {
+            ...state.repos,
+            currentUser,
+            result: [],
+        }
     };
+}
+
+function setUserStatus(state, status) {
+    return {
+        ...state,
+        user: {
+
+        }
+    }
 }
 
 function merge(state, payload) {

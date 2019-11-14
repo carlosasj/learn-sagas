@@ -5,3 +5,10 @@ export const GITHUB_SEARCH_USERS_FAILURE = 'GITHUB_SEARCH_USERS_FAILURE';
 export const GITHUB_GET_REPOS = 'GITHUB_GET_REPOS';
 export const GITHUB_GET_REPOS_SUCCESS = 'GITHUB_GET_REPOS_SUCCESS';
 export const GITHUB_GET_REPOS_FAILURE = 'GITHUB_GET_REPOS_FAILURE';
+
+export const STATUS = {
+    IDLE: 'idle',
+    RUNNING: 'running',
+    SUCCESS: 'success',
+    ERROR: 'error',
+};

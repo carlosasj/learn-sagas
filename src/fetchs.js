@@ -14,3 +14,16 @@ export async function searchUsers(username) {
         });
     return response.json();
 }
+
+export async function getRepos(username) {
+    const response = await fetch(
+        `${baseUrl}/users/${username}/repos`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization,
+            }
+        });
+    return response.json();
+}

@@ -3,6 +3,7 @@ import './App.css';
 import Username from './components/Username';
 import SearchBox from './components/SearchBox';
 import UserList from './components/UserList';
+import RepoList from './components/RepoList';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <SearchBox/>
         <UserList/>
         <Username/>
+        <RepoList/>
       </header>
     </div>
   );
